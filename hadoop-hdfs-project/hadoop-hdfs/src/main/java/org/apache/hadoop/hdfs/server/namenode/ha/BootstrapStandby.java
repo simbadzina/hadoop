@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.hadoop.classification.VisibleForTesting;
 import org.apache.hadoop.hdfs.DFSConfigKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -252,6 +253,12 @@ public class BootstrapStandby implements Tool, Configurable {
       LOG.info("Skipping InMemoryAliasMap bootstrap as it was not configured");
     }
     return 0;
+  }
+
+  @VisibleForTesting
+  public NamespaceInfo getProxyNamespaceInfo(NamenodeProtocol proxy)
+      throws IOException {
+    return proxy.versionRequest();
   }
 
   /**
